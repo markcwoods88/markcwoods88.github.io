@@ -4,7 +4,8 @@
 
 let button;
 let money = 0;
-let squidCoin = 0
+let totalMoney = 0;
+let squidCoin = 0;
 let dps = 0;
 let ram = 0;
 let hdd = 0;
@@ -17,18 +18,15 @@ let costOfRAM = 1000;
 let costOfGPU = 10000;  
 let costOfHDD = 50000;
 let costOfTechs = 100000;
-// let autoSave = setInterval(saveGameState,1000); // I DONT KNOW ANYMORE?!
+let costOfSquidCoin = 10000000000;
 
 
-
-
-function setup() {
+function setup() { // creates canvas and buttons.
   createCanvas(800, 620);
   newGame();
-  //loadGameState();
   
   button = createButton('Beg For $5');
-  button.position(320, 25);
+  button.position(320, 20);
   button.mousePressed(makeMoney);
 
   button = createButton('Start New Game');
@@ -43,6 +41,10 @@ function setup() {
   button.position(450, 35);
   button.mousePressed(loadGameState);
 
+  button = createButton('Credits');
+  button.position(730, 590);
+  button.mousePressed(credits);
+  
   button = createImg('assets/cpu.png');
   button.position(10, 80);
   button.mousePressed(upgradeCPU); 
@@ -125,11 +127,12 @@ function setup() {
 
 }
 
-function draw() {
+function draw() { // adds all the text
   background(150);
   textSize(18);
-  
+
   text('Money:' + ' $' + abbreviateNumber(money, 3), 50, 20); // Money
+  text('Total Money Earned:' + ' $' + abbreviateNumber(totalMoney, 3), 550, 60); // Total Money
   text('SquidCoins: ' + abbreviateNumber(squidCoin, 3), 50, 40); // SquidCoins
   text(nfc('Dollars Per Second(DPS):' + ' $' + dps, 0), 50, 60);
 
@@ -189,14 +192,15 @@ function abbreviateNumber(num, fixed) { // takes large numbers like 100,000 and 
   if (num === 0) { return '0'; } // terminate early
   fixed = (!fixed || fixed < 0) ? 0 : fixed; // number of decimal places to show
   var b = (num).toPrecision(2).split("e"), // get power
-      k = b.length === 1 ? 0 : Math.floor(Math.min(b[1].slice(1), 14) / 3), // floor at decimals, ceiling at trillions
+      k = b.length === 1 ? 0 : Math.floor(Math.min(b[1].slice(1), 14) / 3), // floor at decimals, ceiling at quadrillions
       c = k < 1 ? num.toFixed(0 + fixed) : (num / Math.pow(10, k * 3) ).toFixed(1 + fixed), // divide by power
       d = c < 0 ? c : Math.abs(c), // enforce -0 is 0
-      e = d + ['', 'K', 'M', 'B', 'T'][k]; // append power
+      e = d + ['', 'K', 'M', 'B', 'T', 'Q'][k]; // append power
   return e;
 }
 
 function saveGameState() { // saves the game
+  let lastSaveDate = Date.now();
   var file = {
         money: money,
         cpu: cpu,
@@ -206,17 +210,36 @@ function saveGameState() { // saves the game
         hdd: hdd,
         gpu: gpu,
         tech: tech,
+        costOfSquidCoin: costOfSquidCoin,
+        squidCoin: squidCoin,
+        totalMoney: totalMoney,
         costOfCPU: costOfCPU,
         costOfRAM: costOfRAM,
         costOfGPU: costOfGPU,
         costOfHDD: costOfHDD,
-        costOfTechs: costOfTechs
+        costOfTechs: costOfTechs,
+        lastSaveDate: lastSaveDate
     };
     localStorage.setItem('saveFile',JSON.stringify(file));
 }
 
+function increaseSquidCoin() { // increase SquidCoins
+  if (totalMoney >= costOfSquidCoin) {
+    squidCoin += 1;
+    costOfSquidCoin *= 1.25;
+  }
+}
+
+function offlineEarnings(){ // Money earned while not playing
+  let currentTime = Date.now(); // gets current time
+  offline = dps * (Math.round((currentTime - lastSaveDate) / 1000)); // gets seconds
+  money += offline; // adds money to offline earnings
+  totalMoney += offline;
+  alert("You earned: $" + nfc(offline) + " while you were gone!") // alert message
+}
+
 function loadGameState() { // loads the game
-  var file = JSON.parse(localStorage.getItem('saveFile'));
+    var file = JSON.parse(localStorage.getItem('saveFile'));
     money = file.money;
     cpu = file.cpu;
     squidCoin = file.squidCoin;
@@ -225,12 +248,16 @@ function loadGameState() { // loads the game
     hdd = file.hdd;
     gpu = file.gpu;
     tech = file.tech;
+    costOfSquidCoin = file.costOfSquidCoin;
+    totalMoney = file.totalMoney;
     costOfCPU = file.costOfCPU;
     costOfRAM = file.costOfRAM;
     costOfGPU = file.costOfGPU;
     costOfHDD = file.costOfHDD;
     costOfTechs = file.costOfTechs;
-}  
+    lastSaveDate = file.lastSaveDate;
+    offlineEarnings();
+}
 
 function newGame() { // starts a new game
     money = 0;
@@ -241,6 +268,8 @@ function newGame() { // starts a new game
     gpu = 0;
     tech = 0;
     cpu = 0;
+    costOfSquidCoin = 10000000000;
+    totalMoney = 0;
     costOfCPU = 100;
     costOfRAM = 1000;
     costOfGPU = 10000;  
@@ -248,14 +277,22 @@ function newGame() { // starts a new game
     costOfTechs = 100000;
 }
 
-function increaseDPS() {
+function increaseDPS() { // checks dps and increases it.
   if (dps >= 1) {
-    money = (money + dps);
+    money += dps;
+    totalMoney += dps;
+    increaseSquidCoin();
+    saveGameState(); // Basically auto save
   }
 }
 
 function makeMoney() { // beg for 5$
-  money = money + 5;
+  money += 5;
+  totalMoney += 5;
+}
+
+function credits(){ // credits button
+  alert("This game was created by Mark Woods. All images are from OpenGameArt.org except the 'tech' icon made by Freepik from www.flaticon.com ") // alert message
 }
 
 // Add text below each button for how much DPS it adds.
