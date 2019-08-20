@@ -22,7 +22,7 @@ let costOfSquidCoin = 10000000000;
 
 
 function setup() { // creates canvas and buttons.
-  createCanvas(800, 620);
+  createCanvas(800, 650);
   newGame();
   
   button = createButton('Beg For $5');
