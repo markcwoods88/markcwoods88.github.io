@@ -12,6 +12,7 @@ let hdd = 0;
 let gpu = 0;
 let tech = 0;
 let cpu = 0;
+let dpsMultiplier = 1;
 let dpsPlus = setInterval(increaseDPS, 1000);
 let costOfCPU = 100;
 let costOfRAM = 1000;
@@ -22,29 +23,33 @@ let costOfSquidCoin = 10000000000;
 
 
 function setup() { // creates canvas and buttons.
-  createCanvas(800, 650);
+  createCanvas(850, 650);
   newGame();
   
   button = createButton('Beg For $5');
-  button.position(320, 20);
+  button.position(395, 10);
   button.mousePressed(makeMoney);
 
   button = createButton('Start New Game');
-  button.position(670, 10);
+  button.position(650, 610);
   button.mousePressed(newGame);
 
   button = createButton('Save Game');
-  button.position(450, 10);
+  button.position(750, 10);
   button.mousePressed(saveGameState);
   
   button = createButton('Load Game');
-  button.position(450, 35);
+  button.position(750, 35);
   button.mousePressed(loadGameState);
 
   button = createButton('Credits');
-  button.position(730, 590);
+  button.position(770, 610);
   button.mousePressed(credits);
   
+  button = createButton('Exchange SquidCoins');
+  button.position(490, 10);
+  button.mousePressed(exchangeSquidCoins);
+
   button = createImg('assets/cpu.png');
   button.position(10, 80);
   button.mousePressed(upgradeCPU); 
@@ -131,13 +136,12 @@ function draw() { // adds all the text
   background(150);
   textSize(18);
 
-  text('Money:' + ' $' + abbreviateNumber(money, 3), 50, 20); // Money
-  text('Total Money Earned:' + ' $' + abbreviateNumber(totalMoney, 3), 550, 60); // Total Money
-  text('SquidCoins: ' + abbreviateNumber(squidCoin, 3), 50, 40); // SquidCoins
+  text('Money:' + ' $' + abbreviateNumber(money, 2), 50, 20); // Money
+  text('SquidCoins: ' + abbreviateNumber(squidCoin, 2), 50, 40); // SquidCoins
   text(nfc('Dollars Per Second(DPS):' + ' $' + dps, 0), 50, 60);
 
-  text('CPU\'s:' + ' ' + abbreviateNumber(cpu, 3), 550, 100); // Ammount of CPU's
-  text('Cost: $' + abbreviateNumber(costOfCPU, 3), 550, 115); // Cost of CPU's
+  text('CPU\'s:' + ' ' + abbreviateNumber(cpu, 2), 550, 100); // Ammount of CPU's
+  text('Cost: $' + abbreviateNumber(costOfCPU, 2), 550, 115); // Cost of CPU's
   text('+1 DPS', 550, 130); // DPS Increase
 
   text('RAM:' + ' ' + abbreviateNumber(ram, 3), 550, 220); // Ammount of RAM
@@ -210,6 +214,7 @@ function saveGameState() { // saves the game
         hdd: hdd,
         gpu: gpu,
         tech: tech,
+        dpsMultiplier: dpsMultiplier,
         costOfSquidCoin: costOfSquidCoin,
         squidCoin: squidCoin,
         totalMoney: totalMoney,
@@ -227,6 +232,23 @@ function increaseSquidCoin() { // increase SquidCoins
   if (totalMoney >= costOfSquidCoin) {
     squidCoin += 1;
     costOfSquidCoin *= 1.25;
+  }
+}
+
+function exchangeSquidCoins() { // double DPS per 5 coins
+  if (squidCoin >= 5) {
+      dpsMultiplier *= 2;
+      squidCoin -= 5;
+      dps = 0;
+      money = 0;
+      totalMoney = 0;
+      ram = 0;
+      hdd = 0;
+      gpu = 0;
+      tech = 0;
+      cpu = 0;
+  } else {
+    alert('You need at least 5 SquidCoins to trade them in!' )
   }
 }
 
@@ -248,6 +270,7 @@ function loadGameState() { // loads the game
     hdd = file.hdd;
     gpu = file.gpu;
     tech = file.tech;
+    dpsMultiplier = file.dpsMultiplier;
     costOfSquidCoin = file.costOfSquidCoin;
     totalMoney = file.totalMoney;
     costOfCPU = file.costOfCPU;
@@ -268,6 +291,7 @@ function newGame() { // starts a new game
     gpu = 0;
     tech = 0;
     cpu = 0;
+    dpsMultiplier = 1;
     costOfSquidCoin = 10000000000;
     totalMoney = 0;
     costOfCPU = 100;
@@ -279,8 +303,8 @@ function newGame() { // starts a new game
 
 function increaseDPS() { // checks dps and increases it.
   if (dps >= 1) {
-    money += dps;
-    totalMoney += dps;
+    money += (dps * dpsMultiplier);
+    totalMoney += (dps * dpsMultiplier);
     increaseSquidCoin();
     saveGameState(); // Basically auto save
   }
