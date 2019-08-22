@@ -322,5 +322,3 @@ function makeMoney() { // beg for 5$ DONE
 function credits(){ // credits button DONE
   alert("This game was created by Mark Woods. All images are from OpenGameArt.org except the 'tech' icon made by Freepik from www.flaticon.com ") // alert message
 }
-
-// Need to get SquidCoins to give permanent 2x DPS per 5 coins.
