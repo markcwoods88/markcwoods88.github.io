@@ -153,7 +153,7 @@ function draw() { // adds all the text DONE
   text('+100 DPS', 550, 330); // DPS Increase
 
   text('HDD\'s:' + ' ' + abbreviateNumber(hdd, 3), 550, 400); // Ammount of hdd
-  text('Cost: ' + abbreviateNumber(costOfHDD, 0), 550, 415); // Cost of hdd
+  text('Cost: $' + abbreviateNumber(costOfHDD, 0), 550, 415); // Cost of hdd
   text('+500 DPS', 550, 430); // DPS Increase
 
   text('Techs:' + ' ' + abbreviateNumber(tech, 3), 550, 520); // Ammount of Techs
