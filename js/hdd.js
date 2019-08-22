@@ -1,76 +1,49 @@
-  // upgrading the item increases the cost of the item by *1.01. 
-  
-  function upgradehdd() {
-    if (money >= costOfHDD) {
-      hdd++;
-      money -= costOfHDD;
-      dps++;
-      Math.round(costOfHDD *= 1.01);
-    } else {
-      console.log('You Broke!');
-    }
+function upgradeHDD() {
+  if (money >= costOfHDD) {
+    hdd++;
+    money -= costOfHDD;
+    dps += (1 * dpsMultiplier);
+  } else {
+    console.log('You Broke!');
   }
+}
 
-  function upgradehdd5() {
-    for (i = 0; i < 5; i++)
-      Math.round(costOfHDD *= 1.01);
-      console.log(Math.round(costOfHDD));
-      if (money >= Math.round(costOfHDD)) {
-        hdd += 5;
-        money -= Math.round(costOfHDD);
-        dps += 5;
-        console.log(Math.round(costOfHDD));
-      } else {
-        for (i = 0; i < 5; i++)
-        costOfHDD /= 1.01;
-        console.log(Math.round(costOfHDD));
-      }
-    }
+function upgradeHDD5() {
+  if (money >= costOfHDD * 5) {
+    hdd += 5;
+    money -= costOfHDD * 5;
+    dps += (5 * dpsMultiplier);
+  } else {
+    console.log('You Broke!');
+  }
+}
 
-    function upgradehdd25() {
-      for (i = 0; i < 25; i++)
-        Math.round(costOfHDD *= 1.01);
-        console.log(Math.round(costOfHDD));
-        if (money >= Math.round(costOfHDD)) {
-          hdd += 25;
-          money -= Math.round(costOfHDD);
-          dps += 25;
-          console.log(Math.round(costOfHDD));
-        } else {
-          for (i = 0; i < 25; i++)
-          costOfHDD /= 1.01;
-          console.log(Math.round(costOfHDD));
-        }
-      }
+function upgradeHDD25() {
+  if (money >= costOfHDD * 25) {
+    hdd += 25;
+    money -= costOfHDD * 25;
+    dps += (25 * dpsMultiplier);
+  } else {
+    console.log('You Broke!');
+  }
+}
 
-      function upgradehdd50() {
-        for (i = 0; i < 50; i++)
-          Math.round(costOfHDD *= 1.01);
-          console.log(Math.round(costOfHDD));
-          if (money >= Math.round(costOfHDD)) {
-            hdd += 50;
-            money -= Math.round(costOfHDD);
-            dps += 50;
-            console.log(Math.round(costOfHDD));
-          } else {
-            for (i = 0; i < 50; i++)
-            costOfHDD /= 1.01;
-            console.log(Math.round(costOfHDD));
-          }
-        }
+function upgradeHDD50() {
+  if (money >= costOfHDD * 50) {
+    hdd += 50;
+    money -= costOfHDD * 50;
+    dps += (50 * dpsMultiplier);
+  } else {
+    console.log('You Broke!');
+  }
+}
 
-        function upgradehdd100() {
-          for (i = 0; i < 100; i++)
-            Math.round(costOfHDD *= 1.01);
-            console.log(Math.round(costOfHDD));
-            if (money >= Math.round(costOfHDD)) {
-              hdd += 100;
-              money -= Math.round(costOfHDD);
-              dps += 100;
-              console.log(Math.round(costOfHDD));
-            } else {
-              for (i = 0; i < 100; i++)
-              costOfHDD /= 1.01;
-              console.log(Math.round(costOfHDD));
-            }
-          }
+function upgradeHDD100() {
+  if (money >= costOfHDD * 100) {
+    hdd += 100;
+    money -= costOfHDD * 100;
+    dps += (100 * dpsMultiplier);
+  } else {
+    console.log('You Broke!');
+  }
+}

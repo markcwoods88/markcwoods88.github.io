@@ -1,76 +1,49 @@
-  // upgrading the item increases the cost of the item by *1.01. 
-  
-  function upgradeCPU() {
-    if (money >= costOfCPU) {
-      cpu++;
-      money -= costOfCPU;
-      dps++;
-      Math.round(costOfCPU *= 1.01);
-    } else {
-      console.log('You Broke!');
-    }
+function upgradeCPU() {
+  if (money >= costOfCPU) {
+    cpu++;
+    money -= costOfCPU;
+    dps += dpsMultiplier;
+  } else {
+    console.log('You Broke!');
   }
+}
 
-  function upgradeCPU5() {
-    for (i = 0; i < 5; i++)
-      Math.round(costOfCPU *= 1.01);
-      console.log(Math.round(costOfCPU));
-      if (money >= Math.round(costOfCPU)) {
-        cpu += 5;
-        money -= Math.round(costOfCPU);
-        dps += 5;
-        console.log(Math.round(costOfCPU));
-      } else {
-        for (i = 0; i < 5; i++)
-        costOfCPU /= 1.01;
-        console.log(Math.round(costOfCPU));
-      }
-    }
+function upgradeCPU5() {
+  if (money >= costOfCPU * 5) {
+    cpu += 5;
+    money -= costOfCPU * 5;
+    dps += (5 * dpsMultiplier);
+  } else {
+    console.log('You Broke!');
+  }
+}
 
-    function upgradeCPU25() {
-      for (i = 0; i < 25; i++)
-        Math.round(costOfCPU *= 1.01);
-        console.log(Math.round(costOfCPU));
-        if (money >= Math.round(costOfCPU)) {
-          cpu += 25;
-          money -= Math.round(costOfCPU);
-          dps += 25;
-          console.log(Math.round(costOfCPU));
-        } else {
-          for (i = 0; i < 25; i++)
-          costOfCPU /= 1.01;
-          console.log(Math.round(costOfCPU));
-        }
-      }
+function upgradeCPU25() {
+  if (money >= costOfCPU * 25) {
+    cpu += 25;
+    money -= costOfCPU * 25;
+    dps += (25 * dpsMultiplier);
+  } else {
+    console.log('You Broke!');
+  }
+}
 
-      function upgradeCPU50() {
-        for (i = 0; i < 50; i++)
-          Math.round(costOfCPU *= 1.01);
-          console.log(Math.round(costOfCPU));
-          if (money >= Math.round(costOfCPU)) {
-            cpu += 50;
-            money -= Math.round(costOfCPU);
-            dps += 50;
-            console.log(Math.round(costOfCPU));
-          } else {
-            for (i = 0; i < 50; i++)
-            costOfCPU /= 1.01;
-            console.log(Math.round(costOfCPU));
-          }
-        }
+function upgradeCPU50() {
+  if (money >= costOfCPU * 50) {
+    cpu += 50;
+    money -= costOfCPU * 50;
+    dps += (50 * dpsMultiplier);
+  } else {
+    console.log('You Broke!');
+  }
+}
 
-        function upgradeCPU100() {
-          for (i = 0; i < 100; i++)
-            Math.round(costOfCPU *= 1.01);
-            console.log(Math.round(costOfCPU));
-            if (money >= Math.round(costOfCPU)) {
-              cpu += 100;
-              money -= Math.round(costOfCPU);
-              dps += 100;
-              console.log(Math.round(costOfCPU));
-            } else {
-              for (i = 0; i < 100; i++)
-              costOfCPU /= 1.01;
-              console.log(Math.round(costOfCPU));
-            }
-          }
+function upgradeCPU100() {
+  if (money >= costOfCPU * 100) {
+    cpu += 100;
+    money -= costOfCPU * 100;
+    dps += (100 * dpsMultiplier);
+  } else {
+    console.log('You Broke!');
+  }
+}

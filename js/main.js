@@ -46,7 +46,7 @@ function setup() { // creates canvas and buttons. DONE
   button.position(770, 610);
   button.mousePressed(credits);
   
-  button = createButton('Exchange SquidCoins');
+  button = createButton('Exchange 5 SquidCoins');
   button.position(490, 10);
   button.mousePressed(exchangeSquidCoins);
 
@@ -100,19 +100,19 @@ function setup() { // creates canvas and buttons. DONE
 
   button = createImg('assets/hdd.png');
   button.position(10, 360);
-  button.mousePressed(upgradehdd);
+  button.mousePressed(upgradeHDD);
   button = createImg('assets/hdd.png');
   button.position(115, 360);
-  button.mousePressed(upgradehdd5);
+  button.mousePressed(upgradeHDD5);
   button = createImg('assets/hdd.png');
   button.position(220, 360);
-  button.mousePressed(upgradehdd25);
+  button.mousePressed(upgradeHDD25);
   button = createImg('assets/hdd.png');
   button.position(325, 360);
-  button.mousePressed(upgradehdd50);
+  button.mousePressed(upgradeHDD50);
   button = createImg('assets/hdd.png');
   button.position(430, 360);
-  button.mousePressed(upgradehdd100);
+  button.mousePressed(upgradeHDD100);
 
   button = createImg('assets/tech.png');
   button.position(10, 485);
@@ -189,6 +189,10 @@ function draw() { // adds all the text DONE
   text('X25', 255, 605);
   text('X50', 360, 605);
   text('X100', 460, 605);
+
+  textSize(14)
+  text('You will lose all money & parts for\na permanent 2x DPS boost!', 490, 45);
+
 }
 
 function abbreviateNumber(num, fixed) { // takes large numbers like 100,000 and makes them 100k DONE Not my CODE
@@ -228,14 +232,14 @@ function saveGameState() { // saves the game DONE
     localStorage.setItem('saveFile',JSON.stringify(file));
 }
 
-function increaseSquidCoin() { // increase SquidCoins NO CLUE WHAT I AM DOING!
+function increaseSquidCoin() { // increase SquidCoins DONE
   if (totalMoney >= costOfSquidCoin) {
     squidCoin += 1;
     costOfSquidCoin *= 1.25;
   }
 }
 
-function exchangeSquidCoins() { // double DPS per 5 coins
+function exchangeSquidCoins() { // double DPS per 5 coins DONE
   if (squidCoin >= 5) {
       dpsMultiplier *= 2;
       squidCoin -= 5;
@@ -248,7 +252,7 @@ function exchangeSquidCoins() { // double DPS per 5 coins
       tech = 0;
       cpu = 0;
   } else {
-    alert('You need at least 5 SquidCoins to trade them in!' )
+    alert('You don\'t have enough SquidCoins')
   }
 }
 
@@ -284,7 +288,7 @@ function loadGameState() { // loads the game DONE
 
 function newGame() { // starts a new game DONE
     money = 0;
-    squidCoin = 0
+    squidCoin = 0;
     dps = 0;
     ram = 0;
     hdd = 0;
@@ -303,8 +307,8 @@ function newGame() { // starts a new game DONE
 
 function increaseDPS() { // checks dps and increases it. DONE
   if (dps >= 1) {
-    money += (dps * dpsMultiplier);
-    totalMoney += (dps * dpsMultiplier);
+    money += dps;
+    totalMoney += dps;
     increaseSquidCoin();
     saveGameState(); // Basically auto save
   }
@@ -319,6 +323,4 @@ function credits(){ // credits button DONE
   alert("This game was created by Mark Woods. All images are from OpenGameArt.org except the 'tech' icon made by Freepik from www.flaticon.com ") // alert message
 }
 
-// Add text below each button for how much DPS it adds.
-// buy squidcoin button.
-// squidcoins will buy big upgrades.
+// Need to get SquidCoins to give permanent 2x DPS per 5 coins.
