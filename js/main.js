@@ -22,7 +22,7 @@ let costOfTechs = 100000;
 let costOfSquidCoin = 10000000000;
 
 
-function setup() { // creates canvas and buttons.
+function setup() { // creates canvas and buttons. DONE
   createCanvas(850, 650);
   newGame();
   
@@ -132,13 +132,13 @@ function setup() { // creates canvas and buttons.
 
 }
 
-function draw() { // adds all the text
+function draw() { // adds all the text DONE
   background(150);
   textSize(18);
 
   text('Money:' + ' $' + abbreviateNumber(money, 2), 50, 20); // Money
   text('SquidCoins: ' + abbreviateNumber(squidCoin, 2), 50, 40); // SquidCoins
-  text(nfc('Dollars Per Second(DPS):' + ' $' + dps, 0), 50, 60);
+  text(nfc('Dollars Per Second(DPS):' + ' $' + dps, 0), 50, 60); // DPS Increase
 
   text('CPU\'s:' + ' ' + abbreviateNumber(cpu, 2), 550, 100); // Ammount of CPU's
   text('Cost: $' + abbreviateNumber(costOfCPU, 2), 550, 115); // Cost of CPU's
@@ -174,7 +174,7 @@ function draw() { // adds all the text
 
   text('X1', 50, 350);
   text('X5', 155, 350);
-  text('X25', 255, 350);
+  text('X25', 255, 350);  // These are all of the 1x 5x 25x 50x and 100x under each icon.
   text('X50', 360, 350);
   text('X100', 460, 350);
 
@@ -191,7 +191,7 @@ function draw() { // adds all the text
   text('X100', 460, 605);
 }
 
-function abbreviateNumber(num, fixed) { // takes large numbers like 100,000 and makes them 100k
+function abbreviateNumber(num, fixed) { // takes large numbers like 100,000 and makes them 100k DONE Not my CODE
   if (num === null) { return null; } // terminate early
   if (num === 0) { return '0'; } // terminate early
   fixed = (!fixed || fixed < 0) ? 0 : fixed; // number of decimal places to show
@@ -203,7 +203,7 @@ function abbreviateNumber(num, fixed) { // takes large numbers like 100,000 and 
   return e;
 }
 
-function saveGameState() { // saves the game
+function saveGameState() { // saves the game DONE
   let lastSaveDate = Date.now();
   var file = {
         money: money,
@@ -228,7 +228,7 @@ function saveGameState() { // saves the game
     localStorage.setItem('saveFile',JSON.stringify(file));
 }
 
-function increaseSquidCoin() { // increase SquidCoins
+function increaseSquidCoin() { // increase SquidCoins NO CLUE WHAT I AM DOING!
   if (totalMoney >= costOfSquidCoin) {
     squidCoin += 1;
     costOfSquidCoin *= 1.25;
@@ -252,7 +252,7 @@ function exchangeSquidCoins() { // double DPS per 5 coins
   }
 }
 
-function offlineEarnings(){ // Money earned while not playing
+function offlineEarnings(){ // Money earned while not playing - I somehow actually figured this out... DONE!
   let currentTime = Date.now(); // gets current time
   offline = dps * (Math.round((currentTime - lastSaveDate) / 1000)); // gets seconds
   money += offline; // adds money to offline earnings
@@ -260,7 +260,7 @@ function offlineEarnings(){ // Money earned while not playing
   alert("You earned: $" + nfc(offline) + " while you were gone!") // alert message
 }
 
-function loadGameState() { // loads the game
+function loadGameState() { // loads the game DONE
     var file = JSON.parse(localStorage.getItem('saveFile'));
     money = file.money;
     cpu = file.cpu;
@@ -282,7 +282,7 @@ function loadGameState() { // loads the game
     offlineEarnings();
 }
 
-function newGame() { // starts a new game
+function newGame() { // starts a new game DONE
     money = 0;
     squidCoin = 0
     dps = 0;
@@ -301,7 +301,7 @@ function newGame() { // starts a new game
     costOfTechs = 100000;
 }
 
-function increaseDPS() { // checks dps and increases it.
+function increaseDPS() { // checks dps and increases it. DONE
   if (dps >= 1) {
     money += (dps * dpsMultiplier);
     totalMoney += (dps * dpsMultiplier);
@@ -310,12 +310,12 @@ function increaseDPS() { // checks dps and increases it.
   }
 }
 
-function makeMoney() { // beg for 5$
+function makeMoney() { // beg for 5$ DONE
   money += 5;
   totalMoney += 5;
 }
 
-function credits(){ // credits button
+function credits(){ // credits button DONE
   alert("This game was created by Mark Woods. All images are from OpenGameArt.org except the 'tech' icon made by Freepik from www.flaticon.com ") // alert message
 }
 
