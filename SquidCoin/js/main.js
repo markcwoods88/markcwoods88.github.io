@@ -251,7 +251,6 @@ function exchangeSquidCoins() { // double DPS per 5 coins DONE
       gpu = 0;
       tech = 0;
       cpu = 0;
-      costOfSquidCoin = 10000000000;
   } else {
     alert('You don\'t have enough SquidCoins')
   }
